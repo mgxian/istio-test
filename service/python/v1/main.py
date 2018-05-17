@@ -1,14 +1,16 @@
 from flask import Flask, jsonify
 import platform
+import requests
 
 app = Flask(__name__)
 
 
 @app.route("/env")
 def env():
+    resp = requests.get('http://' + 'service-go' + '/env')
+    data = resp.json()
     return jsonify({
-        "lang": "python",
-        "version": platform.python_version()
+        "message": 'Python' + platform.python_version() + '----->' + data['message']
     })
 
 

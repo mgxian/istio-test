@@ -10,8 +10,7 @@ func main() {
 	r := gin.Default()
 	r.GET("/env", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"lang":    "go",
-			"version": runtime.Version(),
+			"message": "Go" + runtime.Version(),
 		})
 	})
 	r.Run(":80")
