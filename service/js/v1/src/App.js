@@ -15,7 +15,7 @@ class App extends Component {
     let url = "http://istio-test.will/env"
     axios.get(url).then(res => {
       this.setState({
-        message: 'react----->' + res.message
+        message: 'react----->' + res.data.message
       });
     }).catch(error => {
       console.log(error)
