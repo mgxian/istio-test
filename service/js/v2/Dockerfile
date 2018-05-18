@@ -1,7 +1,8 @@
-FROM node:6-alpine
+FROM node:8-alpine
 LABEL maintainer="will835559313@163.com"
 COPY . /app
-RUN cd /app && npm i && npm run build \
+WORKDIR /app
+RUN npm i && npm run build \
     && rm -rf ./node_modules \
     && npm install -g serve
 EXPOSE 80
