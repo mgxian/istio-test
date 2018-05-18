@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:7-alpine
 LABEL maintainer="will835559313@163.com"
 COPY . /app
 WORKDIR /app

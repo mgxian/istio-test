@@ -13,7 +13,7 @@ class App extends Component {
   }
   handleClick() {
     let url = "http://istio-test.will/env"
-    axios.defaults.headers.common['app-client'] = "react"
+    axios.defaults.headers.common['App-Client'] = "react"
     axios.get(url).then(res => {
       this.setState({
         message: 'react----->' + res.data.message
