@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-python-v1
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: service-python
+        version: v1
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: service-python
+        image: registry.cn-shanghai.aliyuncs.com/istio-test/service-python:v1
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /env
+            port: 80
+          initialDelaySeconds: 2
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /env
+            port: 80
+          initialDelaySeconds: 2
+          periodSeconds: 3
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-python
+  labels:
+    app: service-python
+spec:
+  selector:
+    app: service-python
+  ports:
+    - name: http
+      port: 80

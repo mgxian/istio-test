@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: service-js
+  annotations:
+    kubernetes.io/ingress.class: istio
+spec:
+  rules:
+  - host: istio-test.will
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: service-js
+          servicePort: 80

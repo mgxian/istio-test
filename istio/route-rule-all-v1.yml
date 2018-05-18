@@ -1,0 +1,35 @@
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: service-js-default
+spec:
+  destination:
+    name: service-js
+  precedence: 1
+  route:
+  - labels:
+      version: v1
+---
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: service-go-default
+spec:
+  destination:
+    name: service-go
+  precedence: 1
+  route:
+  - labels:
+      version: v1
+---
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: service-python-default
+spec:
+  destination:
+    name: service-python
+  precedence: 1
+  route:
+  - labels:
+      version: v1
