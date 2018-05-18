@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: service-js-v1
+  name: service-js-v2
 spec:
   replicas: 2
   template:
