@@ -1,3 +1,4 @@
+# 流量全部路由到v1版本
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:

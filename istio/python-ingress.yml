@@ -1,3 +1,4 @@
+# service-python ingress配置
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
