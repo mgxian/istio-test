@@ -21,12 +21,14 @@ spec:
             path: /env
             port: 80
           initialDelaySeconds: 2
+          timeoutSeconds: 10
           periodSeconds: 3
         readinessProbe:
           httpGet:
             path: /env
             port: 80
           initialDelaySeconds: 2
+          timeoutSeconds: 5
           periodSeconds: 3
 ---
 kind: Service
