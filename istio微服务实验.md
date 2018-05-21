@@ -129,23 +129,47 @@ istioctl create -f istio/route-rule-go-v1-v2.yaml
 istioctl delete -f istio/route-rule-go-v1-v2.yaml
 ```
 
+#### 集群内访问公开服务
+
+```sh
+# 创建
+istioctl create -f istio/egress-rule-http-bin.yml
+
+# 测试
+# 使用exec进入作为测试源使用的pod
+kubectl apply -f istio/sleep.yaml
+kubectl get pods
+export SOURCE_POD=$(kubectl get pod -l app=sleep -o jsonpath={.items..metadata.name})
+kubectl exec -it $SOURCE_POD -c sleep bash
+curl http://httpbin.org/headers
+```
+
+
+
 ### 故障管理
 
 - 调用超时设置和重试设置
 - 故障注入，模式服务故障
 
-### 超时和重试
+#### 超时和重试
 
 ```sh
 # 创建规则
 istioctl create -f istio/route-rule-python-timeout-retry.yml
 ```
 
-### 故障注入
+#### 故障注入
 
 ```sh
 # 设置服务延时及异常
 istioctl create -f route-rule-go-delay-abort.yml
+```
+
+####  熔断器
+
+```sh
+# 设置最大连接数
+istioctl create -f route-rule-go-cb.yml
 ```
 
 ### 清理
