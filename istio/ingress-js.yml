@@ -10,7 +10,7 @@ spec:
   - host: istio-test.will
     http:
       paths:
-      - path: /
+      - path: /.*
         backend:
           serviceName: service-js
           servicePort: 80
