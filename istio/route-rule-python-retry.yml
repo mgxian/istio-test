@@ -1,8 +1,8 @@
-# 超时和重试
+# 重试
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
-  name: service-python-timeout-retry
+  name: service-python-retry
 spec:
   destination:
     name: service-python
@@ -17,6 +17,3 @@ spec:
     simpleRetry:
       attempts: 3
       perTryTimeout: 1s
-  httpReqTimeout:
-    simpleTimeout:
-      timeout: 1s

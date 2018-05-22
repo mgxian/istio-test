@@ -1,8 +1,8 @@
-# 故障注入delay
+# 故障注入abort
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
-  name: service-go-delay-abort
+  name: service-go-abort
 spec:
   destination:
     name: service-go
@@ -14,9 +14,6 @@ spec:
       version: v1
     weight: 50
   httpFault:
-    delay:
-      fixedDelay: 2.000s
-      percent: 100
     abort:
-      percent: 50
+      percent: 75
       httpStatus: 500
