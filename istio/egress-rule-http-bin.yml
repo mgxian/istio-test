@@ -9,3 +9,15 @@
    ports:
      - port: 80
        protocol: http
+
+---
+ apiVersion: config.istio.io/v1alpha2
+ kind: RouteRule
+ metadata:
+   name: httpbin-timeout-rule
+ spec:
+   destination:
+     service: httpbin.org
+   http_req_timeout:
+     simple_timeout:
+       timeout: 3s
