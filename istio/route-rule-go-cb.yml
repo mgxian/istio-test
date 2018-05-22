@@ -1,4 +1,4 @@
-# 熔断器
+# service-go 熔断器
 apiVersion: config.istio.io/v1alpha2
 kind: DestinationPolicy
 metadata:
@@ -11,5 +11,9 @@ spec:
   circuitBreaker:
     simpleCb:
       maxConnections: 1
-      sleepWindow: 1s
+      httpMaxPendingRequests: 1
+      sleepWindow: 3m
       httpDetectionInterval: 1s
+      httpMaxEjectionPercent: 100
+      httpConsecutiveErrors: 1
+      httpMaxRequestsPerConnection: 1

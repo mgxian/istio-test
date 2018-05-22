@@ -1,0 +1,12 @@
+# service-go 默认规则
+apiVersion: config.istio.io/v1alpha1
+kind: RouteRule
+metadata:
+  name: service-go-default
+spec:
+  destination:
+    name: service-go
+  precedence: 1
+  route:
+  - labels:
+      version: v1
