@@ -4,6 +4,7 @@ COPY . /app
 WORKDIR /app
 RUN apk update && apk add git \
     && go get github.com/gin-gonic/gin \
-    && go build
+    && go build \
+    && rm -rf /go
 EXPOSE 80
 CMD ["./app"]
