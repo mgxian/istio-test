@@ -13,5 +13,8 @@ func main() {
 			"message": "Go" + runtime.Version(),
 		})
 	})
+	r.GET("/status", func(c *gin.Context) {
+		c.String(200, "ok")
+	})
 	r.Run(":80")
 }

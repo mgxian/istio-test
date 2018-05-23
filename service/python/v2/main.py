@@ -11,8 +11,13 @@ def env():
     }
 
 
+def status():
+    return 'ok'
+
+
 routes = [
     Route('/env', method='GET', handler=env),
+    Route('/status', method='GET', handler=status),
 ]
 
 app = App(routes=routes)

@@ -18,14 +18,14 @@ spec:
         - containerPort: 80
         livenessProbe:
           httpGet:
-            path: /env
+            path: /status
             port: 80
           initialDelaySeconds: 2
           timeoutSeconds: 10
           periodSeconds: 3
         readinessProbe:
           httpGet:
-            path: /env
+            path: /status
             port: 80
           initialDelaySeconds: 2
           timeoutSeconds: 5
