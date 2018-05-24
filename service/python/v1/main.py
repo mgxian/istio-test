@@ -4,6 +4,7 @@ import requests
 import logging
 
 app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
 
 def getForwardHeaders(request):

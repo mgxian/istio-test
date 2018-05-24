@@ -29,7 +29,7 @@ class CustomHeadersHook:
     def on_response(self, request: http.Request, response: http.Response):
         forwardHeaders = getForwardHeaders(request)
         for k, v in forwardHeaders.items():
-            response.headers.set(k, v)
+            response.headers[k] = v
         logging.debug(forwardHeaders)
 
 
@@ -52,7 +52,7 @@ routes = [
 
 event_hooks = [CustomHeadersHook]
 app = App(routes=routes, event_hooks=event_hooks)
-
+logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == '__main__':
     app.serve('0.0.0.0', 80, debug=True)
