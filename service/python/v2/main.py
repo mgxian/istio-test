@@ -25,16 +25,18 @@ def getForwardHeaders(request):
     return headers
 
 
-class CustomHeadersHook:
-    def on_response(self, request: http.Request, response: http.Response):
-        forwardHeaders = getForwardHeaders(request)
-        for k, v in forwardHeaders.items():
-            response.headers[k] = v
-        logging.debug(forwardHeaders)
+# class CustomHeadersHook:
+#     def on_response(self, request: http.Request, response: http.Response):
+#         forwardHeaders = getForwardHeaders(request)
+#         for k, v in forwardHeaders.items():
+#             response.headers[k] = v
+#         logging.debug(forwardHeaders)
 
 
-def env():
-    resp = requests.get('http://' + 'service-go' + '/env')
+def env(request: http.Request):
+    forwardHeaders = getForwardHeaders(request)
+    url = 'http://' + 'service-go' + '/env'
+    resp = requests.get(url, headers=forwardHeaders)
     data = resp.json()
     return {
         "message": 'Python' + platform.python_version() + '----->' + data['message']
@@ -50,8 +52,9 @@ routes = [
     Route('/status', method='GET', handler=status),
 ]
 
-event_hooks = [CustomHeadersHook]
-app = App(routes=routes, event_hooks=event_hooks)
+# event_hooks = [CustomHeadersHook]
+# app = App(routes=routes, event_hooks=event_hooks)
+app = App(routes=routes)
 logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == '__main__':

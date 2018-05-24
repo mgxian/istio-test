@@ -33,17 +33,18 @@ def before_request():
     g.forwardHeaders = getForwardHeaders(request)
 
 
-@app.after_request
-def after_request(response):
-    for k, v in g.forwardHeaders.iteritems():
-        response.headers.set(k, v)
-    logging.debug(g.forwardHeaders)
-    return response
+# @app.after_request
+# def after_request(response):
+#     for k, v in g.forwardHeaders.iteritems():
+#         response.headers.set(k, v)
+#     logging.debug(g.forwardHeaders)
+#     return response
 
 
 @app.route("/env")
 def env():
-    resp = requests.get('http://' + 'service-go' + '/env')
+    url = 'http://' + 'service-go' + '/env'
+    resp = requests.get(url, headers=g.forwardHeaders)
     data = resp.json()
     return jsonify({
         "message": 'Python' + platform.python_version() + '----->' + data['message']
