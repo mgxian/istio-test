@@ -9,8 +9,8 @@ router.get('/status', async (ctx, next) => {
 
 router.get('/env', async (ctx, next) => {
     const version = process.versions.node;
-    ctx.body = 'node' + version;
+    ctx.body = { 'message': 'node' + version };
 })
 
 app.use(router.routes()).use(router.allowedMethods());
-app.listen(3000);
+app.listen(80);
