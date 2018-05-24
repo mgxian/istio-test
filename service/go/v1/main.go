@@ -3,6 +3,8 @@ package main
 import (
 	"runtime"
 
+	"log"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,7 +23,7 @@ func TraceMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		for _, h := range incomingHeaders {
 			if ih, ok := c.Request.Header[h]; ok {
-				c.Writer.Header().Set(h, ih[0])
+				log.Print(h, ih[0])
 			}
 		}
 		c.Next()
