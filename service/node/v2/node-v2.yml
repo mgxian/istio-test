@@ -1,19 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: service-lua-v2
+  name: service-node-v2
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: service-lua
+        app: service-node
         version: v2
     spec:
       restartPolicy: Always
       containers:
-      - name: service-lua
-        image: registry.cn-shanghai.aliyuncs.com/istio-test/service-lua:v2
+      - name: service-node
+        image: registry.cn-shanghai.aliyuncs.com/istio-test/service-node:v2
         ports:
         - containerPort: 80
         livenessProbe:
