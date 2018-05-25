@@ -46,5 +46,9 @@ spec:
     namespace: default
   - name: service-python
     namespace: default
+  - name: service-node
+    namespace: default
   - name: service-go
+    namespace: default
+  - name: service-lua
     namespace: default
