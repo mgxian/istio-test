@@ -43,11 +43,11 @@ router.get('/env', async (ctx, next) => {
             headers: forwardHeaders
         });
         console.log(response.data);
+        const version = process.versions.node;
+        ctx.body = { 'message': 'node' + version + '----->' + response.data.message };
     } catch (error) {
         console.error(error);
     }
-    const version = process.versions.node;
-    ctx.body = { 'message': 'node' + version + '----->' + response.data.message };
 })
 
 app.use(router.routes()).use(router.allowedMethods());
