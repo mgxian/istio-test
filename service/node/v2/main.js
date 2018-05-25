@@ -36,10 +36,10 @@ router.get('/status', async (ctx, next) => {
 
 router.get('/env', async (ctx, next) => {
     forwardHeaders = getForwardHeaders(ctx.request)
-    service_node_url = 'http://' + 'service-go' + '/env'
+    service_go_url = 'http://' + 'service-go' + '/env'
     try {
         // console.log(forwardHeaders)
-        const response = await axios.get(service_node_url, {
+        const response = await axios.get(service_go_url, {
             headers: forwardHeaders
         });
         console.log(response.data);
