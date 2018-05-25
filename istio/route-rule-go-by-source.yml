@@ -2,7 +2,7 @@
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
-  name: service-go-react
+  name: service-go-v1-via-service-python-v1
 spec:
   destination:
     name: service-go
@@ -19,7 +19,7 @@ spec:
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
-  name: service-go-vue
+  name: service-go-v2-via-service-python-v2
 spec:
   destination:
     name: service-go
