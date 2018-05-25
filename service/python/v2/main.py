@@ -35,11 +35,17 @@ def getForwardHeaders(request):
 
 def env(request: http.Request):
     forwardHeaders = getForwardHeaders(request)
-    url = 'http://' + 'service-go' + '/env'
-    resp = requests.get(url, headers=forwardHeaders)
-    data = resp.json()
+    
+    service_lua_url = 'http://' + 'service-lua' + '/env'
+    resp = requests.get(service_lua_url, headers=forwardHeaders)
+    data_lua = resp.json()
+
+    service_node_url = 'http://' + 'service-node' + '/env'
+    resp = requests.get(service_node_url, headers=forwardHeaders)
+    data_node = resp.json()
+
     return {
-        "message": 'Python' + platform.python_version() + '----->' + data['message']
+        "message": 'Python' + platform.python_version() + '----->' + data_lua['message'] + ', ' + data_node['message']
     }
 
 

@@ -43,11 +43,16 @@ def before_request():
 
 @app.route("/env")
 def env():
-    url = 'http://' + 'service-go' + '/env'
-    resp = requests.get(url, headers=g.forwardHeaders)
-    data = resp.json()
+    service_lua_url = 'http://' + 'service-lua' + '/env'
+    resp = requests.get(service_lua_url, headers=g.forwardHeaders)
+    data_lua = resp.json()
+
+    service_node_url = 'http://' + 'service-node' + '/env'
+    resp = requests.get(service_node_url, headers=g.forwardHeaders)
+    data_node = resp.json()
+
     return jsonify({
-        "message": 'Python' + platform.python_version() + '----->' + data['message']
+        "message": 'Python' + platform.python_version() + '----->' + data_lua['message'] + ', ' + data_node['message']
     })
 
 
