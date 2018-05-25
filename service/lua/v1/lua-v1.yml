@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-lua-v1
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: service-lua
+        version: v1
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: service-lua
+        image: registry.cn-shanghai.aliyuncs.com/istio-test/service-lua:v1
+        ports:
+        - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /status
+            port: 80
+          initialDelaySeconds: 2
+          timeoutSeconds: 10
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /status
+            port: 80
+          initialDelaySeconds: 2
+          timeoutSeconds: 5
+          periodSeconds: 3
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-lua
+  labels:
+    app: service-lua
+spec:
+  selector:
+    app: service-lua
+  ports:
+    - name: http
+      port: 80
