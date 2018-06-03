@@ -1,34 +1,39 @@
 # 根据自定义请求头配置路由
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-python-react
+  name: service-python
 spec:
-  destination:
-    name: service-python
-  match:
-    request:
-      headers:
-        app-client:
-          regex: "react"
-  precedence: 1
-  route:
-  - labels:
+  host: service-python
+  subsets:
+  - name: v1
+    labels:
       version: v1
----
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
-metadata:
-  name: service-python-vue
-spec:
-  destination:
-    name: service-python
-  match:
-    request:
-      headers:
-        app-client:
-          regex: "vue"
-  precedence: 1
-  route:
-  - labels:
+  - name: v2
+    labels:
       version: v2
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-python
+spec:
+  hosts:
+  - service-python
+  http:
+  - match:
+    - headers:
+        user-agent:
+          regex: "react"
+    route:
+    - destination:
+        host: service-python
+        subset: v1
+  - match:
+    - headers:
+        user-agent:
+          regex: "vue"
+    route:
+    - destination:
+        host: service-python
+        subset: v2

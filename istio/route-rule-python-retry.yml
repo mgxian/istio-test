@@ -1,19 +1,30 @@
 # 重试
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-python-retry
+  name: service-python
 spec:
-  destination:
-    name: service-python
-  route:
-  - labels:
-      version: v2
-    weight: 50
-  - labels:
+  host: service-python
+  subsets:
+  - name: v1
+    labels:
       version: v1
-    weight: 50
-  httpReqRetries:
-    simpleRetry:
+  - name: v2
+    labels:
+      version: v2
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-python
+spec:
+  hosts:
+  - service-python
+  http:
+  - route:
+    - destination:
+        host: service-python
+        subset: v1
+    retries:
       attempts: 3
-      perTryTimeout: 1s
+      perTryTimeout: 2s
