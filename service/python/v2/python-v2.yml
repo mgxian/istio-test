@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: service-python-v2
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:

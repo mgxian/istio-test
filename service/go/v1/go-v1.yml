@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: service-go-v1
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
