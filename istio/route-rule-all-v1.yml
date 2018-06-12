@@ -13,7 +13,7 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -41,7 +41,7 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -69,7 +69,7 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -97,7 +97,7 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -125,7 +125,7 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
