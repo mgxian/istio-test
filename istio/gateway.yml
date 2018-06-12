@@ -26,12 +26,13 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /
-    route:
-    - destination:
-        host: service-js
-    - uri:
         prefix: /env
     route:
     - destination:
         host: service-python
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: service-js
