@@ -2,6 +2,20 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
+  name: service-js
+spec:
+  host: service-js
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
   name: service-python
 spec:
   host: service-python
@@ -12,28 +26,54 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: service-python
+  name: service-js
 spec:
   hosts:
-  - service-python
+  - "istio-test.will"
+  gateways:
+  - istio-test-gateway
   http:
   - match:
-    - headers:
-        user-agent:
+    - uri:
+        prefix: /env
+      headers:
+        app-client:
           regex: "react"
     route:
     - destination:
         host: service-python
         subset: v1
   - match:
-    - headers:
-        user-agent:
+    - uri:
+        prefix: /env
+      headers:
+        app-client:
           regex: "vue"
     route:
     - destination:
         host: service-python
+        subset: v2
+  - match:
+    - uri:
+        prefix: /
+      headers:
+        user-agent:
+          regex: ".*?(Chrome).*?"
+    route:
+    - destination:
+        host: service-js
+        subset: v1
+  - match:
+    - uri:
+        prefix: /
+      headers:
+        user-agent:
+          regex: ".*?(Firefox).*?"
+    route:
+    - destination:
+        host: service-js
         subset: v2
