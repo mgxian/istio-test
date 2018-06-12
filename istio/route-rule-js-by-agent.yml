@@ -19,7 +19,9 @@ metadata:
   name: service-js
 spec:
   hosts:
-  - service-js
+  - "istio-test.will"
+  gateways:
+  - istio-test-gateway
   http:
   - match:
     - headers:
