@@ -1,10 +1,10 @@
-# 重试
+# 超时
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: service-python
+  name: service-node
 spec:
-  host: service-python
+  host: service-node
   subsets:
   - name: v1
     labels:
@@ -12,19 +12,17 @@ spec:
   - name: v2
     labels:
       version: v2
-
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: service-python
+  name: service-node
 spec:
   hosts:
-  - service-python
+  - service-node
   http:
   - route:
     - destination:
-        host: service-python
+        host: service-node
         subset: v1
-    retries:
-      attempts: 3
-      perTryTimeout: 2s
+    timeout: 1s
