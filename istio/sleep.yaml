@@ -27,4 +27,3 @@ spec:
         image: tutum/curl
         command: ["/bin/sleep","infinity"]
         imagePullPolicy: IfNotPresent
----
