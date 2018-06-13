@@ -11,7 +11,7 @@ spec:
     overrides:
     - dimensions:
         destination: service-go
-        source: service-python
+        source: service-node
       maxAmount: 1
       validDuration: 1s
     - dimensions:
