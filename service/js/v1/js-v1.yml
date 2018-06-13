@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: service-js-v1
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
