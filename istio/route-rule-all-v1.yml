@@ -1,60 +1,84 @@
 # 流量全部路由到v1版本
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+# service-node
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-js-default
+  name: service-node
 spec:
-  destination:
-    name: service-js
-  precedence: 1
-  route:
-  - labels:
+  host: service-node
+  subsets:
+  - name: v1
+    labels:
       version: v1
+  - name: v2
+    labels:
+      version: v2
 ---
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
-  name: service-python-default
+  name: service-node
 spec:
-  destination:
-    name: service-python
-  precedence: 1
-  route:
-  - labels:
-      version: v1
+  hosts:
+  - service-node
+  http:
+  - route:
+    - destination:
+        host: service-node
+        subset: v1
 ---
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+# service-lua
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-lua-default
+  name: service-lua
 spec:
-  destination:
-    name: service-lua
-  precedence: 1
-  route:
-  - labels:
+  host: service-lua
+  subsets:
+  - name: v1
+    labels:
       version: v1
+  - name: v2
+    labels:
+      version: v2
 ---
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
 metadata:
-  name: service-node-default
+  name: service-lua
 spec:
-  destination:
-    name: service-node
-  precedence: 1
-  route:
-  - labels:
-      version: v1
+  hosts:
+  - service-lua
+  http:
+  - route:
+    - destination:
+        host: service-lua
+        subset: v1
 ---
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+# service-go
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-go-default
+  name: service-go
 spec:
-  destination:
-    name: service-go
-  precedence: 1
-  route:
-  - labels:
+  host: service-go
+  subsets:
+  - name: v1
+    labels:
       version: v1
+  - name: v2
+    labels:
+      version: v2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-go
+spec:
+  hosts:
+  - service-go
+  http:
+  - route:
+    - destination:
+        host: service-go
+        subset: v1

@@ -1,19 +1,20 @@
 # service-go 熔断器
-apiVersion: config.istio.io/v1alpha2
-kind: DestinationPolicy
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-go-cb
+  name: service-go
 spec:
-  destination:
-    name: service-go
-    labels:
-      version: v1
-  circuitBreaker:
-    simpleCb:
-      maxConnections: 1
-      httpMaxPendingRequests: 1
-      sleepWindow: 3m
-      httpDetectionInterval: 1s
-      httpMaxEjectionPercent: 100
-      httpConsecutiveErrors: 1
-      httpMaxRequestsPerConnection: 1
+  host: service-go
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    outlierDetection:
+      http:
+        consecutiveErrors: 1
+        interval: 1s
+        baseEjectionTime: 3m
+        maxEjectionPercent: 100

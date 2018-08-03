@@ -1,4 +1,3 @@
-# 根据自定义请求头配置路由
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
@@ -30,7 +29,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: service-js
+  name: istio-test
 spec:
   hosts:
   - "istio-test.will"
@@ -40,40 +39,14 @@ spec:
   - match:
     - uri:
         prefix: /env
-      headers:
-        app-client:
-          regex: "react"
     route:
     - destination:
         host: service-python
         subset: v1
   - match:
     - uri:
-        prefix: /env
-      headers:
-        app-client:
-          regex: "vue"
-    route:
-    - destination:
-        host: service-python
-        subset: v2
-  - match:
-    - uri:
         prefix: /
-      headers:
-        user-agent:
-          regex: ".*?(Chrome).*?"
     route:
     - destination:
         host: service-js
         subset: v1
-  - match:
-    - uri:
-        prefix: /
-      headers:
-        user-agent:
-          regex: ".*?(Firefox).*?"
-    route:
-    - destination:
-        host: service-js
-        subset: v2

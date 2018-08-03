@@ -1,34 +1,51 @@
 # 根据请求头配置路由
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: service-js-react
+  name: service-js
 spec:
-  destination:
-    name: service-js
-  match:
-    request:
+  host: service-js
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: service-js
+spec:
+  hosts:
+  - "istio-test.will"
+  gateways:
+  - istio-test-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /env
+    route:
+    - destination:
+        host: service-python
+  - match:
+    - uri:
+        prefix: /
       headers:
         user-agent:
           regex: ".*?(Chrome).*?"
-  precedence: 2
-  route:
-  - labels:
-      version: v1
----
-apiVersion: config.istio.io/v1alpha2
-kind: RouteRule
-metadata:
-  name: service-js-vue
-spec:
-  destination:
-    name: service-js
-  match:
-    request:
+    route:
+    - destination:
+        host: service-js
+        subset: v1
+  - match:
+    - uri:
+        prefix: /
       headers:
         user-agent:
           regex: ".*?(Firefox).*?"
-  precedence: 2
-  route:
-  - labels:
-      version: v2
+    route:
+    - destination:
+        host: service-js
+        subset: v2
