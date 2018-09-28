@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     handleClick () {
-      let url = 'http://istio-test.will/env'
+      let url = '/env'
       axios.defaults.headers.common['App-Client'] = 'vue'
       axios.get(url).then(res => {
         this.message = 'vue----->' + res.data.message
